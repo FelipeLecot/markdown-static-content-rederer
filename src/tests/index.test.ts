@@ -4,13 +4,13 @@ import request from 'supertest';
 import markdownIt from 'markdown-it';
 import { app } from '../index';
 import getValidPaths from '../utils/getValidPaths';
+import type { Express } from 'express';
 
 const md = new markdownIt();
 
 describe('Express Server Tests', () => {
   let validPaths: string[] = [];
-  let contentBasePath: string = '';
-  let server: any;
+  let server: ReturnType<Express['listen']> | null = null;
 
   beforeAll(async () => {
     try {
@@ -36,7 +36,7 @@ describe('Express Server Tests', () => {
   });
 
   test('should return 404 for random invalid URLs', async () => {
-    const response = await request(app).get('/random-invalid-path');
+    const response = await request(app).get('/random-invalid-path/374t892hr3ijfngubhgfinowbe');
     expect(response.status).toBe(404);
   });
 
@@ -48,7 +48,7 @@ describe('Express Server Tests', () => {
     }
     
     for (const validPath of validPaths) {
-      const url = validPath.replace("src\\content\\", '/').replace(/\\/g, '/') || '/';
+      const url = validPath.replace(/\\/g, '/').replace("src/content/", '/') || '/';
       const response = await request(app).get(url);
       expect(response.status).toBe(200);
     }
@@ -62,7 +62,7 @@ describe('Express Server Tests', () => {
     }
     
     for (const validPath of validPaths) {
-      const url = validPath.replace("src\\content\\", '/').replace(/\\/g, '/') || '/';
+      const url = validPath.replace(/\\/g, '/').replace("src/content/", '/') || '/';
       const mdPath = path.join(validPath, 'index.md');
 
       try {

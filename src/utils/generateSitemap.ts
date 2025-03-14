@@ -9,7 +9,7 @@ const generateSitemap = async () => {
 ${paths
   .map(
     (path) => `<url>
-  <loc>${path}</loc>
+  <loc>${path.replace(/(dist|src)\/content\//, "/")}</loc>
 </url>`
   )
   .join("\n")}

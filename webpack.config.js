@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/client/client.tsx',
@@ -16,7 +17,22 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
     ],
   },
-  mode: 'development',
+  mode: 'production',
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
+  ],
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public'),
+    hot: true,
+    port: 3001,
+    historyApiFallback: true,
+  },
 };

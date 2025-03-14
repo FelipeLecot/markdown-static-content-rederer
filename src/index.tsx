@@ -9,11 +9,11 @@ import { StaticRouter } from 'react-router-dom';
 const app = express();
 const md = new markdownIt();
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static('./public'));
 
 const PORT = 3001;
 
-app.get('*', async (req: Request, res: Response): Promise<any> => {
+app.get("*", async (req: Request, res: Response): Promise<any> => {
   const pagePath = path.join(__dirname, '/content/', req.url || '');
 
   if (!fs.existsSync(pagePath)) {
@@ -50,7 +50,6 @@ app.get('*', async (req: Request, res: Response): Promise<any> => {
 });
 
 if (require.main === module) {
-  // Only start the server if this file is run directly, not imported
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });

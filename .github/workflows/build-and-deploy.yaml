@@ -38,6 +38,12 @@ jobs:
       - name: Log in to Heroku Container Registry
         run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh      
+
+      - name: Pull Image from Docker Hub
+        run: docker pull ${{ vars.DOCKER_USERNAME }}/felipelecot-pensionbee:latest
+      
       - name: Tag image for Heroku
         run: |
           docker tag ${{ vars.DOCKER_USERNAME }}/felipelecot-pensionbee:latest registry.heroku.com/${{ vars.HEROKU_APP_NAME }}/web

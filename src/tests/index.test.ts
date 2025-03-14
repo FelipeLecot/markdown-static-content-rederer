@@ -36,7 +36,7 @@ describe('Express Server Tests', () => {
   });
 
   test('should return 404 for random invalid URLs', async () => {
-    const response = await request(app).get('/random-invalid-path');
+    const response = await request(app).get('/random-invalid-path/374t892hr3ijfngubhgfinowbe');
     expect(response.status).toBe(404);
   });
 

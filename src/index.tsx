@@ -23,23 +23,22 @@ app.get("/sitemap.xml", async (req: Request, res: Response): Promise<void> => {
 
 app.get("*", async (req: Request, res: Response): Promise<void> => {
   const pagePath = path.join(__dirname, '/content/', req.url || '');
-  let err404 = false;
-  if (!fs.existsSync(pagePath)) {
-    err404 = true;
-  }
 
+  const templateErrorPath = path.join(__dirname, 'templates', '/error.html');
+  const errorTemplate = fs.readFileSync(templateErrorPath, 'utf-8');
+  const errorPage = errorTemplate.replace(/{{error}}/g, '404 Page not found');
+
+  if (!fs.existsSync(pagePath)) {
+    res.status(404).send(errorPage);
+    return;
+  }
+  
   const mdFilePath = path.join(pagePath, 'index.md');
   const templateFilePath = path.join(__dirname, 'templates', '/template.html');
-  const templateErrorPath = path.join(__dirname, 'templates', '/error.html');
 
   if (!fs.existsSync(mdFilePath)) {
-    err404 = true;
-  }
-
-  if (err404) {
-    const errorTemplate = fs.readFileSync(templateErrorPath, 'utf-8');
-    const errorPage = errorTemplate.replace(/{{error}}/g, '404 Page not found');
     res.status(404).send(errorPage);
+    return;
   }
 
   try {
@@ -58,9 +57,11 @@ app.get("*", async (req: Request, res: Response): Promise<void> => {
     const renderedPage = template.replace('{{title}}', "Welcome to Acme").replace('{{content}}', reactHtml);
 
     res.status(200).send(renderedPage);
+    return;
   } catch (error) {
     console.error('Error rendering page:', error);
     res.status(500).send('Internal Server Error');
+    return;
   }
 });
 

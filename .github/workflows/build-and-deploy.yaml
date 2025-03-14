@@ -39,7 +39,12 @@ jobs:
         run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
       - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh      
+        run: curl https://cli-assets.heroku.com/install.sh | sh    
+        
+      - name: Ensure Heroku Stack is Set to "container"
+        run: heroku stack:set container --app ${{ vars.HEROKU_APP_NAME }}
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
       - name: Pull Image from Docker Hub
         run: docker pull ${{ vars.DOCKER_USERNAME }}/felipelecot-pensionbee:latest

@@ -1,37 +1,77 @@
-# Static Content challenge
+# Features of the Application
+This application is a full-stack JavaScript application that returns pages based on URLs that match the paths of the folders and sub-folders in the `src/content` folder. The content of these pages comes from a combination of the template HTML file and a markdown `index.md` file contained in the directory requested. E.g. if the requested path is `/home/about` there must be a `src/content/home/about/index.md` file to be rendered.
 
-**NB: Please do not fork this repository, to avoid your solution being visible from this repository's GitHub page. Please clone this repository and submit your solution as a separate repository.**
+Features:
+- React on the front-end.
+- Express server for handling HTTP requests.
+- Markdown files to store content.
+- HTML template files to contain the markdown content.
+- XML sitemap generator based on the valid paths in the `content` folder.
+- Tests to verify that requests to valid URLs return a 200 HTTP status code, that requests to valid URLs return a body that contains the HTML generated from the relevant `index.md` markdown file, and that requests to URLs that do not match content folders return a 404 HTTP status code.
 
-Business Scenario: Acme Co's marketing department want a simple content management system and you've been tasked with building the MVP.
+# How to Run, Build, Test, and Collaborate on the Application
+## Downloading dependencies
+To run, build and test the application you first need to download it's dependencies, navigate to the root directory of the project and run the following command:
 
-The challenge here is to create a full-stack JavaScript application that returns webpages at URLs that match the paths of the folders and sub-folders in the `content` folder. The content of these pages should come from a combination of the template HTML file and a markdown file containing the content.
+```bash
+npm i
+```
 
-For example, for a folder called `about-page`, a request to `/about-page` would return a HTML page created from the `template.html` template and the `about-page/index.md` content file. The `template.html` file contains a `{{content}}` placeholder that would be replaced by the content for each page. A request to `/blog/june/company-update` would return a HTML page using the content file at `blog/june/company-update/index.md`.
+## Running the Application
+To run the application, navigate to the root directory of the project and run the following command:
 
-As a modern full-stack JavaScript app MVP, the application should use an effective mix of technologies, although there is a requirement to use React on the front-end to fit in with Acme Co's other websites.
+```bash
+npm run dev
+```
 
-Acme's marketing department should be able to add extra folders to the `content` folder and the application should work with those without any requiring any code changes.
+This will start the development server (webpack and express) which updates automatically on changes. The application will be available at `http://localhost:3001`.
 
-This repository contains a `template.html` template file and a sample `content` folder with sub-folders containing `index.md` markdown files (or other sub-folders).
+## Building the Application
+To build the application, navigate to the root directory of the project and run the following command:
 
-Your application may make use of open-source code libraries and other third-party tools. It is entirely up to you how the application performs the challenge. As the use of LLMs is widespread in software engineering, you are permitted to use AI as you wish.
+```bash
+npm run build-client
+npm run build-server
+```
 
-## Testing
+This will build the application and create a `dist` folder that contains the compiled code.
 
-The application should be shipped with at minimum three tests, although your testing strategy should effectively test your application:
+## Testing the Application
+To test the application, navigate to the root directory of the project and run the following commands:
 
-- one that verifies that requests to valid URLs return a 200 HTTP status code
-- one that verifies that requests to valid URLs return a body that contains the HTML generated from the relevant `index.md` markdown file
-- one that verifies that requests to URLs that do not match content folders return a 404 HTTP status code
-- NB: the tests should not depend on the existing sub-folders in the `content` folder, so the tests do not break as the content changes
+```bash
+npm test
+```
 
-## Bonus credit
+This will run the tests and display the results.
 
-**NB: This is only relevant if completing this task in your own time, i.e. NOT in a pairing interview**
+```bash
+npm lint
+```
 
-In this MVP sprint, there are several opportunities to deliver nice-to-have tickets. The marketing team recognise that in a post-LLM world sprint velocity may be higher.
+This will run the linter and display the results.
 
-- The generated HTML page should be styled in a pleasing way
-- The MVP's GitHub repository should be configured for hosting on a cloud hosting service, and include a link to a live deployment
-- The repository should include documentation describing how to both use the application and how to iterate it from here
-- Overall, you should do everything you think is necessary to make this application MVP production-ready
+# Collaborating on the Application
+## Branch Protection
+The main branch of the repository is protected, meaning that changes cannot be pushed directly to it. To make changes to the main branch, create a pull request and have it pass the checks and be reviewed and approved by at least one other developer.
+
+- All changes must be made through a pull request and reviewed by at least one other developer before being merged into the main branch.
+- The pull request must include a clear description of the changes being made.
+- The pull request must pass all checks, including tests and linting.
+
+## App Deployment
+The application is deployed to Heroku and can be accessed at [https://pension-bee-static-content.felipelecot.com/](https://pension-bee-static-content.felipelecot.com/).
+The deployment is done automatically when changes are merged into the main branch via GitHub Actions using Heroku CLI and Docker container registry.
+
+# Backlog 
+1. [x] Create Express + React app: Create a basic Express server that serves a React app.
+2. [x] Support for markdown files: Add support for reading markdown files and rendering them as HTML inside the tempale file.
+3. [x] Style Markdown Content: Style the generated HTML page in a pleasing way.
+4. [x] Deploy the app via GitHub Actions: Configure workflows and deploy the application to a cloud hosting service. Use Docker container registry to build and deploy the application to Heroku.
+5. [x] XML sitemap generator: Add a sitemap generator that generates a sitemap based on the valid paths in the `content` folder.
+6. [ ] Navbar: Add a navbar to the application to provide easy navigation between pages.
+7. [ ] Use React Router on internal links: Use React Router to handle internal links to prevent browser refreshes and improve performance.
+8. [ ] Add other error pages: Add error pages for other HTTP status codes, such as 500 Internal Server Error.
+9. [ ] Add user authentication: Add restricted folder for authenticated users only.
+10. [ ] Add support for accessibility features: Add support for accessibility features, such as screen readers, labels, high contrast mode, dark mode and tab indexes to make the application more accessible to users.
+11. [ ] Add support for multiple languages: Add support for multiple languages by using a translation library.

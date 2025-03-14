@@ -22,12 +22,12 @@ jobs:
 
       - name: Build and tag Docker image
         run: |
-          docker build -t ${{ vars.DOCKER_USERNAME }}/my-app:latest .
-        working-directory: ./src
+          docker build -t ${{ vars.DOCKER_USERNAME }}/felipelecot-pensionbee:latest .
+        working-directory: ./
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push ${{ vars.DOCKER_USERNAME }}/my-app:latest
+          docker push ${{ vars.DOCKER_USERNAME }}/felipelecot-pensionbee:latest
 
   deploy-to-heroku:
     name: Deploy to Heroku
@@ -40,7 +40,7 @@ jobs:
 
       - name: Tag image for Heroku
         run: |
-          docker tag ${{ vars.DOCKER_USERNAME }}/my-app:latest registry.heroku.com/${{ vars.HEROKU_APP_NAME }}/web
+          docker tag ${{ vars.DOCKER_USERNAME }}/felipelecot-pensionbee:latest registry.heroku.com/${{ vars.HEROKU_APP_NAME }}/web
 
       - name: Push image to Heroku
         run: |

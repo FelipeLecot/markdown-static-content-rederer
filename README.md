@@ -51,22 +51,27 @@ npm lint
 
 This will run the linter and display the results.
 
-## Collaborating on the Application
-# Branch Protection
+# Collaborating on the Application
+## Branch Protection
 The main branch of the repository is protected, meaning that changes cannot be pushed directly to it. To make changes to the main branch, create a pull request and have it pass the checks and be reviewed and approved by at least one other developer.
 
 - All changes must be made through a pull request and reviewed by at least one other developer before being merged into the main branch.
 - The pull request must include a clear description of the changes being made.
 - The pull request must pass all checks, including tests and linting.
 
+## App Deployment
+The application is deployed to Heroku and can be accessed at [https://pension-bee-static-content.felipelecot.com/](https://pension-bee-static-content.felipelecot.com/).
+The deployment is done automatically when changes are merged into the main branch via GitHub Actions using Heroku CLI and Docker container registry.
+
 # Backlog 
 1. [x] Create Express + React app: Create a basic Express server that serves a React app.
 2. [x] Support for markdown files: Add support for reading markdown files and rendering them as HTML inside the tempale file.
 3. [x] Style Markdown Content: Style the generated HTML page in a pleasing way.
-4. [x] XML sitemap generator: Add a sitemap generator that generates a sitemap based on the valid paths in the `content` folder.
-5. [ ] Navbar: Add a navbar to the application to provide easy navigation between pages.
-6. [ ] Use React Router on internal links: Use React Router to handle internal links to prevent browser refreshes and improve performance.
-7. [ ] Add other error pages: Add error pages for other HTTP status codes, such as 500 Internal Server Error.
-8. [ ] Add user authentication: Add restricted folder for authenticated users only.
-9. [ ] Add support for accessibility features: Add support for accessibility features, such as screen readers, labels, high contrast mode, dark mode and tab indexes to make the application more accessible to users.
-10. [ ] Add support for multiple languages: Add support for multiple languages by using a translation library.
+4. [x] Deploy the app via GitHub Actions: Configure workflows and deploy the application to a cloud hosting service. Use Docker container registry to build and deploy the application to Heroku.
+5. [x] XML sitemap generator: Add a sitemap generator that generates a sitemap based on the valid paths in the `content` folder.
+6. [ ] Navbar: Add a navbar to the application to provide easy navigation between pages.
+7. [ ] Use React Router on internal links: Use React Router to handle internal links to prevent browser refreshes and improve performance.
+8. [ ] Add other error pages: Add error pages for other HTTP status codes, such as 500 Internal Server Error.
+9. [ ] Add user authentication: Add restricted folder for authenticated users only.
+10. [ ] Add support for accessibility features: Add support for accessibility features, such as screen readers, labels, high contrast mode, dark mode and tab indexes to make the application more accessible to users.
+11. [ ] Add support for multiple languages: Add support for multiple languages by using a translation library.

@@ -15,6 +15,9 @@ app.use(express.static('./public'));
 const PORT = process.env.PORT || 3001;
 
 app.get("/sitemap.xml", async (req: Request, res: Response): Promise<any> => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Content-Type", "application/xml");
+  res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
   res.status(200).send(await generateSitemap());
 });
 

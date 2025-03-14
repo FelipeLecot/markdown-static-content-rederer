@@ -63,12 +63,24 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
-      - name: Add custom domain to Heroku
+      - name: Check if domain exists
+        id: check_domain
+        run: |
+          if heroku domains --app ${{ vars.HEROKU_APP_NAME }} | grep -q ${{ vars.CUSTOM_DOMAIN }}; then
+            echo "DOMAIN_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "DOMAIN_EXISTS=false" >> $GITHUB_ENV
+          fi
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        
+      - name: Add custom domain to Heroku (if not exists)
+        if: steps.check_domain.outputs.DOMAIN_EXISTS == 'false'
         run: |
           heroku domains:add ${{ vars.CUSTOM_DOMAIN }} --app ${{ vars.HEROKU_APP_NAME }}
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      
+        
       - name: Get Heroku DNS target
         run: |
           heroku domains --app ${{ vars.HEROKU_APP_NAME }} | grep -Eo '[a-zA-Z0-9.-]+.herokudns.com' | tee heroku_dns_target.txt

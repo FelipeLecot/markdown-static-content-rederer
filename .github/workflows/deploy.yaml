@@ -1,0 +1,44 @@
+name: Build and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-to-heroku:
+    name: Deploy to Heroku
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Log in to Heroku Container Registry
+        run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
+
+      - name: Tag image for Heroku
+        run: |
+          docker tag ${{ vars.DOCKER_USERNAME }}/my-app:latest registry.heroku.com/${{ vars.HEROKU_APP_NAME }}/web
+
+      - name: Push image to Heroku
+        run: |
+          docker push registry.heroku.com/${{ vars.HEROKU_APP_NAME }}/web
+
+      - name: Release image on Heroku
+        run: |
+          heroku container:release web --app ${{ vars.HEROKU_APP_NAME }}
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      - name: Add custom domain to Heroku
+        run: |
+          heroku domains:add ${{ vars.CUSTOM_DOMAIN }} --app ${{ vars.HEROKU_APP_NAME }}
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      
+      - name: Get Heroku DNS target
+        run: |
+          heroku domains --app ${{ vars.HEROKU_APP_NAME }} | grep -Eo '[a-zA-Z0-9.-]+.herokudns.com' | tee heroku_dns_target.txt
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      - name: Output DNS Target
+        run: cat heroku_dns_target.txt

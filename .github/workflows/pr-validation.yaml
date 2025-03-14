@@ -1,0 +1,24 @@
+name: Build and Deploy Docker Image
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pr-validation:
+    name: PR Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Run Jest tests
+        run: npm test

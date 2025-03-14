@@ -5,6 +5,7 @@ import ReactDOMServer from 'react-dom/server';
 import markdownIt from 'markdown-it';
 import { Page } from './components/Page';
 import { StaticRouter } from 'react-router-dom';
+import generateSitemap from './utils/generateSitemap';
 
 const app = express();
 const md = new markdownIt();
@@ -12,6 +13,10 @@ const md = new markdownIt();
 app.use(express.static('./public'));
 
 const PORT = 3001;
+
+app.get("/sitemap.xml", async (req: Request, res: Response): Promise<any> => {
+  res.status(200).send(await generateSitemap());
+});
 
 app.get("*", async (req: Request, res: Response): Promise<any> => {
   const pagePath = path.join(__dirname, '/content/', req.url || '');

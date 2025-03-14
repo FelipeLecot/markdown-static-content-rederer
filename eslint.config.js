@@ -1,29 +1,31 @@
-module.exports = [
-  {
-    plugins: {
-      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
-    },
+const js = require('@eslint/js');
+const globals = require('globals');
+const reactHooks = require('eslint-plugin-react-hooks');
+const reactRefresh = require('eslint-plugin-react-refresh');
+const tseslint = require('typescript-eslint');
 
-    rules: {
-      'no-console': 'warn',
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      semi: ['error', 'always'],
-      quotes: ['error', 'single'],
-      indent: ['error', 2],
-      '@typescript-eslint/no-explicit-any': 'error',
-    },
-
-    ignores: ['public/bundle.js'],
-  },
+module.exports = tseslint.config(
+  { ignores: ['dist'] },
   {
-    files: ['*.ts', '*.tsx'],
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
       ecmaVersion: 2020,
-      sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
+      globals: {
+        ...globals.browser,
+        AudioWorkletGlobalScope: 'readonly',
       },
     },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
   },
-];
+);

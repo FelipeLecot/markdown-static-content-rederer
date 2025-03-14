@@ -4,13 +4,13 @@ import request from 'supertest';
 import markdownIt from 'markdown-it';
 import { app } from '../index';
 import getValidPaths from '../utils/getValidPaths';
+import type { Express } from 'express';
 
 const md = new markdownIt();
 
 describe('Express Server Tests', () => {
   let validPaths: string[] = [];
-  let contentBasePath: string = '';
-  let server: any;
+  let server: ReturnType<Express['listen']> | null = null;
 
   beforeAll(async () => {
     try {

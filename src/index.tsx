@@ -14,14 +14,14 @@ app.use(express.static('./public'));
 
 const PORT = process.env.PORT || 3001;
 
-app.get("/sitemap.xml", async (req: Request, res: Response): Promise<any> => {
+app.get("/sitemap.xml", async (req: Request, res: Response): Promise<void> => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("Content-Type", "application/xml");
   res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
   res.status(200).send(await generateSitemap());
 });
 
-app.get("*", async (req: Request, res: Response): Promise<any> => {
+app.get("*", async (req: Request, res: Response): Promise<void> => {
   const pagePath = path.join(__dirname, '/content/', req.url || '');
   let err404 = false;
   if (!fs.existsSync(pagePath)) {

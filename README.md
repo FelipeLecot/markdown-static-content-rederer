@@ -70,8 +70,9 @@ The deployment is done automatically when changes are merged into the main branc
 4. [x] Deploy the app via GitHub Actions: Configure workflows and deploy the application to a cloud hosting service. Use Docker container registry to build and deploy the application to Heroku.
 5. [x] XML sitemap generator: Add a sitemap generator that generates a sitemap based on the valid paths in the `content` folder.
 6. [ ] Navbar: Add a navbar to the application to provide easy navigation between pages.
-7. [ ] Use React Router on internal links: Use React Router to handle internal links to prevent browser refreshes and improve performance.
-8. [ ] Add other error pages: Add error pages for other HTTP status codes, such as 500 Internal Server Error.
-9. [ ] Add user authentication: Add restricted folder for authenticated users only.
-10. [ ] Add support for accessibility features: Add support for accessibility features, such as screen readers, labels, high contrast mode, dark mode and tab indexes to make the application more accessible to users.
-11. [ ] Add support for multiple languages: Add support for multiple languages by using a translation library.
+7. [ ] Add more variables to the templates: Add more variables to the templates to allow for more customization of the generated HTML pages.
+8. [ ] Use React Router on internal links: Use React Router to handle internal links to prevent browser refreshes and improve performance.
+9. [ ] Add other error pages: Add error pages for other HTTP status codes, such as 500 Internal Server Error.
+10. [ ] Add user authentication: Add restricted folder for authenticated users only.
+11. [ ] Add support for accessibility features: Add support for accessibility features, such as screen readers, labels, high contrast mode, dark mode and tab indexes to make the application more accessible to users.
+12. [ ] Add support for multiple languages: Add support for multiple languages by using a translation library.

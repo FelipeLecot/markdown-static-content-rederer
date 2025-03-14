@@ -39,7 +39,7 @@ app.get("*", async (req: Request, res: Response): Promise<void> => {
   if (err404) {
     const errorTemplate = fs.readFileSync(templateErrorPath, 'utf-8');
     const errorPage = errorTemplate.replace(/{{error}}/g, '404 Page not found');
-    return res.status(404).send(errorPage);
+    res.status(404).send(errorPage);
   }
 
   try {

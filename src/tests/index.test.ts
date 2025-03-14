@@ -48,7 +48,7 @@ describe('Express Server Tests', () => {
     }
     
     for (const validPath of validPaths) {
-      const url = validPath.replace("src\\content\\", '/').replace(/\\/g, '/') || '/';
+      const url = validPath.replace(/\\/g, '/').replace("src/content/", '/') || '/';
       const response = await request(app).get(url);
       expect(response.status).toBe(200);
     }
@@ -62,7 +62,7 @@ describe('Express Server Tests', () => {
     }
     
     for (const validPath of validPaths) {
-      const url = validPath.replace("src\\content\\", '/').replace(/\\/g, '/') || '/';
+      const url = validPath.replace(/\\/g, '/').replace("src/content/", '/') || '/';
       const mdPath = path.join(validPath, 'index.md');
 
       try {

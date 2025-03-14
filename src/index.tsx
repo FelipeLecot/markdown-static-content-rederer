@@ -12,7 +12,7 @@ const md = new markdownIt();
 
 app.use(express.static('./public'));
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.get("/sitemap.xml", async (req: Request, res: Response): Promise<any> => {
   res.status(200).send(await generateSitemap());

@@ -1,6 +1,4 @@
-# Static Content challenge
-
-**NB: Please do not fork this repository, to avoid your solution being visible from this repository's GitHub page. Please clone this repository and submit your solution as a separate repository.**
+# Objective
 
 Business Scenario: Acme Co's marketing department want a simple content management system and you've been tasked with building the MVP.
 
@@ -25,12 +23,7 @@ The application should be shipped with at minimum three tests, although your tes
 - one that verifies that requests to URLs that do not match content folders return a 404 HTTP status code
 - NB: the tests should not depend on the existing sub-folders in the `content` folder, so the tests do not break as the content changes
 
-## Bonus credit
-
-**NB: This is only relevant if completing this task in your own time, i.e. NOT in a pairing interview**
-
-In this MVP sprint, there are several opportunities to deliver nice-to-have tickets. The marketing team recognise that in a post-LLM world sprint velocity may be higher.
-
+Nice to have features:
 - The generated HTML page should be styled in a pleasing way
 - The MVP's GitHub repository should be configured for hosting on a cloud hosting service, and include a link to a live deployment
 - The repository should include documentation describing how to both use the application and how to iterate it from here
